@@ -23,9 +23,21 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text('Widget Playground'),
+      appBar: AppBar(title: Text('App bar')),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text('CHART!'),
+              elevation: 5.0,
+            ),
+          ),
+          Card(
+            child: Text('LIST OF TXs'),
+            elevation: 5.0,
+          ),
+        ],
       ),
     );
   }
