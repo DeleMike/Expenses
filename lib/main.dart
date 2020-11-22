@@ -1,4 +1,8 @@
+import 'package:Expense/widgets/new_transaction.dart';
+import 'package:Expense/widgets/transaction_list.dart';
+import 'package:Expense/widgets/user_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -23,21 +27,22 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('App bar')),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Card(
-              child: Text('CHART!'),
-              elevation: 5.0,
+      backgroundColor: Colors.purple[50],
+      appBar: AppBar(title: Text('Expenses')),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text('CHART!'),
+                elevation: 5.0,
+              ),
             ),
-          ),
-          Card(
-            child: Text('LIST OF TXs'),
-            elevation: 5.0,
-          ),
-        ],
+            UserTransaction(),
+          ],
+        ),
       ),
     );
   }
