@@ -49,8 +49,12 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.all(1.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(40.0),),
+      ),
       child: Container(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
             TextField(

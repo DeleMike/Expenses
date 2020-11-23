@@ -47,22 +47,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //     id: '1', title: 'New Shoes', amount: 3.20, date: DateTime.now()),
-    // Transaction(id: '2', title: 'New Comb', amount: 1.12, date: DateTime.now())
+    Transaction(
+        id: '1', title: 'New Shoes', amount: 3.20, date: DateTime.now()),
+    Transaction(id: '2', title: 'New Comb', amount: 1.12, date: DateTime.now())
   ];
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
-      if(tx.date.isAfter(DateTime.now().subtract(Duration(days: 7),),)){
+      if (tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      )) {
         return true;
-      }else{
+      } else {
         return false;
       }
     }).toList();
-  } 
+  }
 
-  void _addNewTransaction(String txTitle, double txAmount, DateTime chosenDate) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: txTitle,
@@ -84,7 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(40.0),
+        ),
       ),
       context: ctx,
       builder: (_) {
@@ -99,27 +106,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expenses'),
+      actions: [
+        IconButton(
+            icon: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              _startAddNewTransaction(context);
+            }),
+      ],
+    );
     return Scaffold(
       backgroundColor: Colors.purple[50],
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _startAddNewTransaction(context);
-              }),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(recentTransactions: _recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(recentTransactions: _recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
